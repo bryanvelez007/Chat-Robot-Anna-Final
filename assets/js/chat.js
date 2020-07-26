@@ -78,11 +78,7 @@ $("#chatSend").on('keyup', function (e) {
 const voices = window.speechSynthesis.getVoices();
 const speech = new SpeechSynthesisUtterance();
 
-speech.voice = voices[4];
-speech.lang = "es-US";
 
-
-function chatbotvoice(message) {
 
 
 
@@ -263,6 +259,6 @@ mic.addEventListener("click", function () {
     console.log("Activated");
 })
 
-function scrollDiv() {
-    document.querySelector('#finalscroll').scrollIntoView();
-}
+   function scrollDiv() {
+       document.querySelector('#finalscroll').scrollIntoView();
+   }
