@@ -1,18 +1,13 @@
 onload = function() {
     if ('speechSynthesis' in window) with(speechSynthesis) {
+        var es_chrome = navigator.userAgent.toLowerCase().indexOf('edg') > -1;
         let mic = document.getElementById("mic");
         let chatareamain = document.querySelector('.chatarea-main');
         let chatareaouter = document.querySelector('.chatarea-outer');
-
-        /* $(".chat_body").animate({
-             scrollTop: $('.chat_body')[0].scrollHeight
-         }, 1000);*/
-
-        let empleados = {
-            "usuarios": {},
-            "imagenes": ""
-        };
-
+        console.log(es_chrome)
+            /* $(".chat_body").animate({
+                 scrollTop: $('.chat_body')[0].scrollHeight
+             }, 1000);*/
         let dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
         let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
@@ -83,13 +78,15 @@ onload = function() {
 
             console.log(window.speechSynthesis.getVoices());
         };
+        speech.rate = 1.1;
         speech.lang = "es-US";
 
         function chatbotvoice(message) {
 
             if (message.includes('hola')) {
                 let finalresult = intro[Math.floor(Math.random() * intro.length)];
-                llamarVoz(speech, speech.text = finalresult);
+                speech.text = finalresult
+                llamarVoz(speech, speech.text);
             } else if (message.includes('novia')) {
                 speech.text = "Me gustas…. pero solo como amigo.";
                 llamarVoz(speech, speech.text);
