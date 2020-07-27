@@ -70,7 +70,8 @@ img.img_robot {
 
 .messages {
     display: inline-flex;
-    margin-left: -94px;
+    margin-left: -76px;
+    float: left !important;
 }
 
 .main {

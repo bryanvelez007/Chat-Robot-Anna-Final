@@ -1,13 +1,14 @@
-onload = function() {
+onload = function () {
     if ('speechSynthesis' in window) with(speechSynthesis) {
         var es_chrome = navigator.userAgent.toLowerCase().indexOf('edg') > -1;
         let mic = document.getElementById("mic");
         let chatareamain = document.querySelector('.chatarea-main');
         let chatareaouter = document.querySelector('.chatarea-outer');
+        var i = 0;
         console.log(es_chrome)
-            /* $(".chat_body").animate({
-                 scrollTop: $('.chat_body')[0].scrollHeight
-             }, 1000);*/
+        /* $(".chat_body").animate({
+             scrollTop: $('.chat_body')[0].scrollHeight
+         }, 1000);*/
         let dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
         let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
@@ -46,29 +47,64 @@ onload = function() {
 
         }
 
+
+
+        var myDiv = document.querySelectorAll("div.chatarea-inner.chatbot")[i];
+        var altura = myDiv.clientHeight
+
+        if (altura == 62) {
+            document.querySelectorAll('img.img_robot')[i].style.marginTop = '22px';
+        }
+
+        if (altura == 40) {
+            document.querySelectorAll('img.img_robot')[i].style.marginTop = '2px';
+        }
+
+        if (altura == 84) {
+            document.querySelectorAll('img.img_robot')[i].style.marginTop = '44px';
+        }
+
+
+
         function showchatbotmsg(chatbotmsg, image, description) {
+            i = i + 1;
             let output = '';
             output += `<div class="messages">
             <img class="img_robot" src="assets/images/ana.jpg" alt="anna robot">
             <div class="chatarea-inner chatbot" style="text-align: justify;">${chatbotmsg}${image}${description}</div>
         </div>`;
             chatareaouter.innerHTML += output;
-            var altura = document.querySelector(".chatarea-inner.chatbot").style.height;
-            console.log(altura);
+            var myDiv = document.querySelectorAll("div.chatarea-inner.chatbot")[i];
+            var altura = myDiv.clientHeight
+
+
+            if (altura == 62) {
+                document.querySelectorAll('img.img_robot')[i].style.marginTop = '22px';
+            }
+
+            if (altura == 40) {
+                document.querySelectorAll('img.img_robot')[i].style.marginTop = '2px';
+            }
+
+            if (altura == 84) {
+                document.querySelectorAll('img.img_robot')[i].style.marginTop = '44px';
+            }
+
+
             return chatareaouter;
 
         }
 
 
         //chatbotvoice("ana");
-        $("i.zmdi.zmdi-mail-send").click(function() {
+        $("i.zmdi.zmdi-mail-send").click(function () {
             var mensaje = $("#chatSend").val()
             showusermsg(mensaje);
             chatbotvoice(mensaje.toLowerCase());
             $("#chatSend").val("");
         });
 
-        $("#chatSend").on('keyup', function(e) {
+        $("#chatSend").on('keyup', function (e) {
             var keycode = e.keyCode || e.which;
             if (keycode == 13) {
                 var mensaje = $("#chatSend").val()
@@ -80,7 +116,7 @@ onload = function() {
 
         const voices = window.speechSynthesis.getVoices();
         const speech = new SpeechSynthesisUtterance();
-        window.speechSynthesis.onvoiceschanged = function() {
+        window.speechSynthesis.onvoiceschanged = function () {
 
             console.log(window.speechSynthesis.getVoices());
         };
@@ -120,7 +156,7 @@ onload = function() {
             } else if (message.includes('enojate')) {
                 speech.text = "Déjame ver si puedo enojarme....... RAYOS ,Creo que no puedo hacerlo ";
                 llamarVoz(speech, speech.text);
-            } else if (message.includes('Morse')) {
+            } else if (message.includes('morse') | message.includes('clave')) {
                 speech.text = "Da-dit, da-da, dit, dit, dit. Eso significa que sí.";
                 llamarVoz(speech, speech.text);
             } else if (message.includes('numero') | message.includes('número') && message.includes('contar')) {
@@ -130,7 +166,7 @@ onload = function() {
                 $.ajax({
                     type: "GET",
                     url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
-                    success: function(response) {
+                    success: function (response) {
                         imagenDescripcion(JSON.parse(response).Personas.Ana.imagen, JSON.parse(response).Personas.Ana.Descripcion, plantilla, message);
                     }
                 });
@@ -139,7 +175,7 @@ onload = function() {
                 $.ajax({
                     type: "GET",
                     url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
-                    success: function(response) {
+                    success: function (response) {
                         imagenDescripcion(JSON.parse(response).Personas.Carlos.imagen, JSON.parse(response).Personas.Carlos.Descripcion, plantilla, message);
                     }
                 });
@@ -249,17 +285,17 @@ onload = function() {
             scrollDiv();
         }
 
-        recognition.onresult = function(e) {
+        recognition.onresult = function (e) {
             let resultIndex = e.resultIndex;
             let transcript = e.results[resultIndex][0].transcript;
             chatareamain.appendChild(showusermsg(transcript));
             chatbotvoice(transcript.toLowerCase());
-            console.log(typeof(transcript));
+            console.log(typeof (transcript));
         }
-        recognition.onend = function() {
+        recognition.onend = function () {
             mic.style.background = "#ff3b3b";
         }
-        mic.addEventListener("click", function() {
+        mic.addEventListener("click", function () {
             mic.style.background = '#39c81f';
 
 
@@ -271,7 +307,8 @@ onload = function() {
             document.querySelector('#finalscroll').scrollIntoView();
         }
     }
-    else { /* speech synthesis not supported */
+    else {
+        /* speech synthesis not supported */
         msg = document.createElement('h5');
         msg.textContent = "Detected no support for Speech Synthesis";
         msg.style.textAlign = 'center';
