@@ -59,14 +59,26 @@ position: fixed;
 z-index: 2;
 }*/
 
+img.img_robot {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    top: 17px;
+    border-radius: 50px;
+    margin-right: 0px;
+}
+
+.messages {
+    display: inline-flex;
+    margin-left: -94px;
+}
+
 .main {
     width: 100%;
     float: left;
     margin-top: 60px;
     padding: 30px 0;
 }
-
-#descspan {}
 
 .main button {
     background: #ff3b3b;
@@ -175,7 +187,7 @@ color: antiquewhite;
     float: right !important;
     border-radius: 20px 20px 20px 0px;
     text-align: justify;
-    right: -39px;
+    right: -18px;
 }
 
 .chatarea-inner.user:before {

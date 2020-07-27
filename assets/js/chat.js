@@ -48,12 +48,18 @@ onload = function() {
 
         function showchatbotmsg(chatbotmsg, image, description) {
             let output = '';
-            output += `<div class="chatarea-inner chatbot">${chatbotmsg}${image}${description}</div>`;
+            output += `<div class="messages">
+            <img class="img_robot" src="assets/images/ana.jpg" alt="anna robot">
+            <div class="chatarea-inner chatbot" style="text-align: justify;">${chatbotmsg}${image}${description}</div>
+        </div>`;
             chatareaouter.innerHTML += output;
-
+            var altura = document.querySelector(".chatarea-inner.chatbot").style.height;
+            console.log(altura);
             return chatareaouter;
 
         }
+
+
         //chatbotvoice("ana");
         $("i.zmdi.zmdi-mail-send").click(function() {
             var mensaje = $("#chatSend").val()
@@ -78,7 +84,7 @@ onload = function() {
 
             console.log(window.speechSynthesis.getVoices());
         };
-        speech.rate = 1.1;
+        speech.rate = 1.0;
         speech.lang = "es-US";
 
         function chatbotvoice(message) {
