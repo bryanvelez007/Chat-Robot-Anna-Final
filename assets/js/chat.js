@@ -159,7 +159,7 @@ onload = function() {
             window.speechSynthesis.onvoiceschanged = function() {
                 voices = window.speechSynthesis.getVoices();
                 console.log(window.speechSynthesis.getVoices());
-                speech.voice = voices[14];
+                speech.voice = voices[13];
             };
         }
 
