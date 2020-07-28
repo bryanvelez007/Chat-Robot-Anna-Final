@@ -5,6 +5,7 @@ onload = function() {
         let mic = document.getElementById("mic");
         let chatareamain = document.querySelector('.chatarea-main');
         let chatareaouter = document.querySelector('.chatarea-outer');
+        let load = document.querySelector("#loading");
         var i = 0;
         /* $(".chat_body").animate({
              scrollTop: $('.chat_body')[0].scrollHeight
