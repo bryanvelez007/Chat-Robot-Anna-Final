@@ -267,17 +267,23 @@ onload = function() {
                         imagenDescripcion(JSON.parse(response).daniel.url, JSON.parse(response).daniel.descripcion, JSON.parse(response).daniel.nombre);
                     }
                 });
-            }
-            /*else if (message.includes('papaterra')) {
-                           $.ajax({
-                               type: "GET",
-                               url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
-                               success: function(response) {
-                                   imagenDescripcion(JSON.parse(response).Personas.Ana.imagen, JSON.parse(response).Personas.Ana.Descripcion, plantilla, message);
-                               }
-                           });
-                       } */
-            else if (message.includes('novia')) {
+            } else if ((message.includes("ana") && message.includes("descripcion"))) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        imagenDescripcion(JSON.parse(response).ana.url, JSON.parse(response).ana.descripcion, JSON.parse(response).ana.nombre);
+                    }
+                });
+            } else if ((message.includes("andres") && message.includes("descripcion"))) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        imagenDescripcion(JSON.parse(response).andres.url, JSON.parse(response).andres.descripcion, JSON.parse(response).andres.nombre);
+                    }
+                });
+            } else if (message.includes('novia')) {
                 speech.text = "Me gustas…. pero solo como amigo.";
                 llamarVoz(speech, speech.text);
             } else if (message.includes('estuvo') && message.includes('dia')) {
