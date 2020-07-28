@@ -45,6 +45,14 @@ ul li {
     z-index: 998;
 }
 
+#loading {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 0px;
+    visibility: hidden;
+}
+
 .fab {
     display: block;
     width: 56px;
@@ -299,6 +307,7 @@ a {
     resize: none;
     font-size: 13px;
     font-weight: 400;
+    width: 307px;
 }
 
 .chat_category {
@@ -378,6 +387,11 @@ a {
 }
 
 #fab_camera {
+    float: left;
+    background: rgba(0, 0, 0, 0);
+}
+
+#fab_load {
     float: left;
     background: rgba(0, 0, 0, 0);
 }

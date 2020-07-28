@@ -1,4 +1,4 @@
-onload = function () {
+onload = function() {
     if ('speechSynthesis' in window) with(speechSynthesis) {
         const synth = window.speechSynthesis;
         var es_chrome = navigator.userAgent.toLowerCase().indexOf('edg') > -1;
@@ -68,7 +68,7 @@ onload = function () {
 
 
 
-        function showchatbotmsg(chatbotmsg, image, description) {
+        function showchatbotmsgimg(chatbotmsg, image, description) {
             i = i + 1;
             let output = '';
             output += `<div class="messages">
@@ -99,14 +99,43 @@ onload = function () {
 
         }
 
+        function showchatbotmsg(description, msg) {
+            i = i + 1;
+            let output = '';
+            output += `<div class="messages">
+            <img class="img_robot" src="assets/images/ana.jpg" alt="anna robot">
+            <div class="chatarea-inner chatbot" style="text-align: justify;">${description}${msg}</div>
+        </div>`;
+            chatareaouter.innerHTML += output;
+            var myDiv = document.querySelectorAll("div.chatarea-inner.chatbot")[i];
+            var altura = myDiv.clientHeight
+
+
+            if (altura == 62) {
+                document.querySelectorAll('img.img_robot')[i].style.marginTop = '22px';
+            }
+
+            if (altura == 40) {
+                document.querySelectorAll('img.img_robot')[i].style.marginTop = '2px';
+            }
+
+            if (altura == 84) {
+                document.querySelectorAll('img.img_robot')[i].style.marginTop = '44px';
+            }
+            if (altura == 162) {
+                document.querySelectorAll('img.img_robot')[i].style.marginTop = '122px';
+            }
+
+            return chatareaouter;
+        }
         //chatbotvoice("ana");
-        $("i.zmdi.zmdi-mail-send").click(function () {
+        $("i.zmdi.zmdi-mail-send").click(function() {
             var mensaje = $("#chatSend").val()
             showusermsg(mensaje);
             chatbotvoice(mensaje.toLowerCase());
             $("#chatSend").val("");
         });
-        $("#chatSend").on('keyup', function (e) {
+        $("#chatSend").on('keyup', function(e) {
             var keycode = e.keyCode || e.which;
             if (keycode == 13) {
                 var mensaje = $("#chatSend").val()
@@ -120,25 +149,135 @@ onload = function () {
         speech.rate = 1.0;
         if (!es_chrome) {
             console.log(es_chrome);
-            window.speechSynthesis.onvoiceschanged = function () {
+            window.speechSynthesis.onvoiceschanged = function() {
                 voices = window.speechSynthesis.getVoices();
                 console.log(window.speechSynthesis.getVoices());
                 speech.voice = voices[7];
             };
         } else {
-            window.speechSynthesis.onvoiceschanged = function () {
+            window.speechSynthesis.onvoiceschanged = function() {
                 voices = window.speechSynthesis.getVoices();
                 console.log(window.speechSynthesis.getVoices());
-                speech.voice = voices[13];
+                speech.voice = voices[14];
             };
         }
 
         function chatbotvoice(message) {
+            console.log("Esto es el mensaje: " + message);
+            speech.text = "";
             if (message.includes('hola')) {
                 let finalresult = intro[Math.floor(Math.random() * intro.length)];
-                speech.text = finalresult
+                speech.text = finalresult;
                 llamarVoz(speech, speech.text);
-            } else if (message.includes('novia')) {
+            } else if ((message.includes("bryan") && message.includes("nota")) || (message.includes("bryan") && message.includes("qa"))) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        notaqa(JSON.parse(response).bryan.nota, JSON.parse(response).bryan.nombre);
+                    }
+                });
+            } else if ((message.includes("diego tong") && message.includes("nota")) || (message.includes("diego tong") && message.includes("qa"))) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        notaqa(JSON.parse(response).diego.nota, JSON.parse(response).diego.nombre);
+                    }
+                });
+            } else if ((message.includes("rudy") && message.includes("nota")) || (message.includes("rudy") && message.includes("qa")) || (message.includes("andrés") && message.includes("nota")) || (message.includes("andres") && message.includes("qa"))) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        notaqa(JSON.parse(response).rudy.nota, JSON.parse(response).rudy.nombre);
+                    }
+                });
+            } else if ((message.includes("sara") && message.includes("nota")) || (message.includes("sara") && message.includes("qa"))) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        notaqa(JSON.parse(response).sara.nota, JSON.parse(response).sara.nombre);
+                    }
+                });
+            } else if ((message.includes("yamel") && message.includes("nota")) || (message.includes("yamel") && message.includes("qa")) || (message.includes("andrés") && message.includes("nota")) || (message.includes("andres") && message.includes("qa"))) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        notaqa(JSON.parse(response).yamel.nota, JSON.parse(response).yamel.nombre);
+                    }
+                });
+            } else if ((message.includes("daniel") && message.includes("nota")) || (message.includes("daniel") && message.includes("qa")) || (message.includes("andrés") && message.includes("nota")) || (message.includes("andres") && message.includes("qa"))) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        notaqa(JSON.parse(response).daniel.nota, JSON.parse(response).daniel.nombre);
+                    }
+                });
+            }
+            /***************************************************DESCRIPCIONES */
+            else if (message.includes("bryan") && message.includes("descripcion")) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        imagenDescripcion(JSON.parse(response).bryan.url, JSON.parse(response).bryan.descripcion, JSON.parse(response).bryan.nombre);
+                    }
+                });
+            } else if (message.includes("diego tong") && message.includes("descripcion")) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        imagenDescripcion(JSON.parse(response).diego.url, JSON.parse(response).diego.descripcion, JSON.parse(response).diego.nombre);
+                    }
+                });
+            } else if (message.includes("rudy") && message.includes("descripcion")) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        imagenDescripcion(JSON.parse(response).rudy.url, JSON.parse(response).rudy.descripcion, JSON.parse(response).rudy.nombre);
+                    }
+                });
+            } else if (message.includes("sara") && message.includes("descripcion")) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        imagenDescripcion(JSON.parse(response).sara.url, JSON.parse(response).sara.descripcion, JSON.parse(response).sara.nombre);
+                    }
+                });
+            } else if (message.includes("yamel") && message.includes("descripcion")) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        imagenDescripcion(JSON.parse(response).yamel.url, JSON.parse(response).yamel.descripcion, JSON.parse(response).yamel.nombre);
+                    }
+                });
+            } else if ((message.includes("daniel") && message.includes("descripcion"))) {
+                $.ajax({
+                    type: "GET",
+                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                    success: function(response) {
+                        imagenDescripcion(JSON.parse(response).daniel.url, JSON.parse(response).daniel.descripcion, JSON.parse(response).daniel.nombre);
+                    }
+                });
+            }
+            /*else if (message.includes('papaterra')) {
+                           $.ajax({
+                               type: "GET",
+                               url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
+                               success: function(response) {
+                                   imagenDescripcion(JSON.parse(response).Personas.Ana.imagen, JSON.parse(response).Personas.Ana.Descripcion, plantilla, message);
+                               }
+                           });
+                       } */
+            else if (message.includes('novia')) {
                 speech.text = "Me gustas…. pero solo como amigo.";
                 llamarVoz(speech, speech.text);
             } else if (message.includes('estuvo') && message.includes('dia')) {
@@ -171,22 +310,6 @@ onload = function () {
             } else if (message.includes('numero') | message.includes('número') && message.includes('contar')) {
                 speech.text = "No lo sé. Lo intentaría, pero estarías muy aburrido para cuando termine";
                 llamarVoz(speech, speech.text);
-            } else if (message.includes('papaterra')) {
-                $.ajax({
-                    type: "GET",
-                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
-                    success: function (response) {
-                        imagenDescripcion(JSON.parse(response).Personas.Ana.imagen, JSON.parse(response).Personas.Ana.Descripcion, plantilla, message);
-                    }
-                });
-            } else if (message.includes('carlos')) {
-                $.ajax({
-                    type: "GET",
-                    url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
-                    success: function (response) {
-                        imagenDescripcion(JSON.parse(response).Personas.Carlos.imagen, JSON.parse(response).Personas.Carlos.Descripcion, plantilla, message);
-                    }
-                });
             } else if (message.includes('hoy') || message.includes('actual')) {
                 let finalresult = "Hoy es " + dias[hoy.getDay()] + " " + dd + " de " + meses[mm - 1] + " del " + yyyy;
                 speech.text = finalresult;
@@ -229,7 +352,7 @@ onload = function () {
                 let finalresult = help[Math.floor(Math.random() * help.length)];
                 speech.text = finalresult;
                 llamarVoz(speech, speech.text);
-            } else if (message.includes('Cómo está') || /esta/gi.test(message.includes('como estas'))) {
+            } else if (message.includes('Cómo está') || /esta/gi.test(message.includes('como esta'))) {
                 let finalresult = greetings[Math.floor(Math.random() * greetings.length)];
                 speech.text = finalresult;
                 llamarVoz(speech, speech.text);
@@ -270,48 +393,67 @@ onload = function () {
                 chatareamain.appendChild(showchatbotmsg(speech.text + " 😞", "", ""));
                 scrollDiv();
             }
+
         }
 
         function llamarVoz(spech, textoSpeech) {
+            console.log("LLAMAR VOZ")
             synth.speak(spech);
             chatareamain.appendChild(showchatbotmsg(textoSpeech, "", ""));
             scrollDiv();
+
         }
 
-        function imagenDescripcion(UrlImagen, Descripcion, template, mensaje) {
-            console.log("ENTRO METODO IMAGENDESCRIPCION");
-            image = `<br><img src="${UrlImagen}" alt="" style="width: 130px;height: 100px;border-radius: 20px;"<br>`;
-            description = `<span id="descspan" style="text-align: justify;">"${Descripcion}"</span><br>`;
-            let finalresult = template[Math.floor(Math.random() * template.length)];
+        function imagenDescripcion(UrlImagen, Descripcion, mensaje) {
+            console.log("imagendescrip")
+            let image = `<br><img src="${UrlImagen}" alt="" style="width: 130px;height: 100px;border-radius: 20px;"<br>`;
+            let description = `<span id="descspan" style="text-align: justify;">"${Descripcion}"</span><br>`;
+            let finalresult = plantilla[Math.floor(Math.random() * plantilla.length)];
             speech.text = finalresult;
             synth.speak(speech);
-            chatareamain.appendChild(showchatbotmsg(speech.text, image, description));
+            chatareamain.appendChild(showchatbotmsgimg(speech.text, image, description));
             speech.text = ` la descripción de ${mensaje} es: ` + Descripcion;
             window.speechSynthesis.speak(speech);
             scrollDiv();
         }
-        recognition.onresult = function (e) {
+
+        function notaqa(qa, persona) {
+            console.log("notaqa");
+            let finalresult = plantilla[Math.floor(Math.random() * plantilla.length)];
+            speech.text = finalresult;
+            synth.speak(speech);
+            let description = `<span id=descspan style=text-align: justify; > ` + speech.text + "</span><br>";
+            let msg = `<span id=descspan style=text-align: justify; > ` + `La nota de ${persona} es: ${qa}` + "</span><br>";
+            chatareamain.appendChild(showchatbotmsg(description, msg));
+            speech.text = `la nota de ${persona} es: ${qa}`;
+            synth.speak(speech);
+            scrollDiv();
+        }
+        recognition.onresult = function(e) {
             let resultIndex = e.resultIndex;
             let transcript = e.results[resultIndex][0].transcript;
+            transcript = transcript.toLowerCase();
+            transcript = transcript.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
             chatareamain.appendChild(showusermsg(transcript));
-            chatbotvoice(transcript.toLowerCase());
-            console.log(typeof (transcript));
+            chatbotvoice(transcript);
         }
-        recognition.onend = function () {
-            mic.style.background = "#ff3b3b";
+        recognition.onend = function() {
+            mic.style.visibility = 'visible';
+            load.style.visibility = 'hidden';
         }
-        mic.addEventListener("click", function () {
-            mic.style.background = '#39c81f';
+        mic.addEventListener("click", function() {
+            mic.style.visibility = 'hidden';
+            load.style.visibility = 'visible';
+            // mic.style.background = '#39c81f';
             recognition.start();
-            console.log("Activated");
+
         })
 
         function scrollDiv() {
             document.querySelector('#finalscroll').scrollIntoView();
         }
     }
-    else {
-        /* speech synthesis not supported */
+    else { /* speech synthesis not supported */
         msg = document.createElement('h5');
         msg.textContent = "Detected no support for Speech Synthesis";
         msg.style.textAlign = 'center';
@@ -320,4 +462,5 @@ onload = function () {
         msg.style.marginTop = msg.style.marginBottom = 0;
         document.body.insertBefore(msg, document.querySelector('div'));
     }
+
 }
