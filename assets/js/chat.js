@@ -149,22 +149,21 @@ onload = function() {
         var voices = window.speechSynthesis.getVoices();
         speech.rate = 1.0;
         if (!es_chrome) {
-            console.log(es_chrome);
             window.speechSynthesis.onvoiceschanged = function() {
                 voices = window.speechSynthesis.getVoices();
-                console.log(window.speechSynthesis.getVoices());
+                // console.log(window.speechSynthesis.getVoices());
                 speech.voice = voices[7];
             };
         } else {
             window.speechSynthesis.onvoiceschanged = function() {
                 voices = window.speechSynthesis.getVoices();
-                console.log(window.speechSynthesis.getVoices());
+                //  console.log(window.speechSynthesis.getVoices());
                 speech.voice = voices[13];
             };
         }
 
         function chatbotvoice(message) {
-            console.log("Esto es el mensaje: " + message);
+            // console.log("Esto es el mensaje: " + message);
             speech.text = "";
             if (message.includes('hola')) {
                 let finalresult = intro[Math.floor(Math.random() * intro.length)];
@@ -220,7 +219,7 @@ onload = function() {
                 });
             }
             /***************************************************DESCRIPCIONES */
-            else if (message.includes("bryan") && message.includes("descripcion")) {
+            else if (message.includes("bryan") && (message.includes("descripcion") || message.includes("sobre"))) {
                 $.ajax({
                     type: "GET",
                     url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
@@ -228,7 +227,7 @@ onload = function() {
                         imagenDescripcion(JSON.parse(response).bryan.url, JSON.parse(response).bryan.descripcion, JSON.parse(response).bryan.nombre);
                     }
                 });
-            } else if (message.includes("diego tong") && message.includes("descripcion")) {
+            } else if (message.includes("diego tong") && (message.includes("descripcion") || message.includes("sobre"))) {
                 $.ajax({
                     type: "GET",
                     url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
@@ -236,7 +235,7 @@ onload = function() {
                         imagenDescripcion(JSON.parse(response).diego.url, JSON.parse(response).diego.descripcion, JSON.parse(response).diego.nombre);
                     }
                 });
-            } else if (message.includes("rudy") && message.includes("descripcion")) {
+            } else if (message.includes("rudy") && (message.includes("descripcion") || message.includes("sobre"))) {
                 $.ajax({
                     type: "GET",
                     url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
@@ -244,7 +243,7 @@ onload = function() {
                         imagenDescripcion(JSON.parse(response).rudy.url, JSON.parse(response).rudy.descripcion, JSON.parse(response).rudy.nombre);
                     }
                 });
-            } else if (message.includes("sara") && message.includes("descripcion")) {
+            } else if (message.includes("sara") && (message.includes("descripcion") || message.includes("sobre"))) {
                 $.ajax({
                     type: "GET",
                     url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
@@ -252,7 +251,7 @@ onload = function() {
                         imagenDescripcion(JSON.parse(response).sara.url, JSON.parse(response).sara.descripcion, JSON.parse(response).sara.nombre);
                     }
                 });
-            } else if (message.includes("yamel") && message.includes("descripcion")) {
+            } else if (message.includes("yamel") && (message.includes("descripcion") || message.includes("sobre"))) {
                 $.ajax({
                     type: "GET",
                     url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
@@ -260,7 +259,7 @@ onload = function() {
                         imagenDescripcion(JSON.parse(response).yamel.url, JSON.parse(response).yamel.descripcion, JSON.parse(response).yamel.nombre);
                     }
                 });
-            } else if ((message.includes("daniel") && message.includes("descripcion"))) {
+            } else if (message.includes("daniel") && (message.includes("descripcion") || message.includes("sobre"))) {
                 $.ajax({
                     type: "GET",
                     url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
@@ -268,7 +267,7 @@ onload = function() {
                         imagenDescripcion(JSON.parse(response).daniel.url, JSON.parse(response).daniel.descripcion, JSON.parse(response).daniel.nombre);
                     }
                 });
-            } else if ((message.includes("ana") && message.includes("descripcion"))) {
+            } else if (message.includes("ana") && (message.includes("descripcion") || message.includes("sobre"))) {
                 $.ajax({
                     type: "GET",
                     url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
@@ -276,7 +275,7 @@ onload = function() {
                         imagenDescripcion(JSON.parse(response).ana.url, JSON.parse(response).ana.descripcion, JSON.parse(response).ana.nombre);
                     }
                 });
-            } else if ((message.includes("andres") && message.includes("descripcion"))) {
+            } else if (message.includes("andres") && (message.includes("descripcion") || message.includes("sobre"))) {
                 $.ajax({
                     type: "GET",
                     url: "https://raw.githubusercontent.com/andrespro00/ApiChatBot/master/api",
@@ -302,10 +301,10 @@ onload = function() {
             } else if (message.includes('hermosa')) {
                 speech.text = "Yo no me veo nada mal, ¿tú qué opinas?";
                 llamarVoz(speech, speech.text);
-            } else if (message.includes('espejo') | message.includes('espejito')) {
+            } else if (message.includes('espejo') || message.includes('espejito')) {
                 speech.text = "¿Blancanieves?,¿eres tu ?";
                 llamarVoz(speech, speech.text);
-            } else if (message.includes('años')) {
+            } else if (message.includes('años') || message.includes('edad')) {
                 speech.text = "Creo, que eso ahora no es tan importante!";
                 llamarVoz(speech, speech.text);
             } else if (message.includes('enojate')) {
@@ -355,15 +354,15 @@ onload = function() {
                 let finalresult = intro[Math.floor(Math.random() * intro.length)];
                 speech.text = finalresult;
                 llamarVoz(speech, speech.text);
-            } else if (message.includes('Bien') || /bien/gi.test(message.includes('estes bien')) || /excelente/gi.test(message.includes("estes excelente"))) {
+            } else if (message.includes('Bien') || message.includes('estes bien') || message.includes("estes excelente")) {
                 let finalresult = help[Math.floor(Math.random() * help.length)];
                 speech.text = finalresult;
                 llamarVoz(speech, speech.text);
-            } else if (message.includes('Cómo está') || /esta/gi.test(message.includes('como esta'))) {
+            } else if (message.includes('como esta') || /esta/gi.test(message.includes('esta'))) {
                 let finalresult = greetings[Math.floor(Math.random() * greetings.length)];
                 speech.text = finalresult;
                 llamarVoz(speech, speech.text);
-            } else if (message.includes('ti') || /ti/gi.test(message.includes("sobre ti")) || /algo/gi.test(message.includes("algo sobre"))) {
+            } else if (message.includes('sobre ti')) {
                 let finalresult = hobbies[Math.floor(Math.random() * hobbies.length)];
                 speech.text = finalresult;
                 llamarVoz(speech, speech.text);
@@ -379,22 +378,11 @@ onload = function() {
                 let finalresult = help[Math.floor(Math.random() * help.length)];
                 speech.text = finalresult;
                 llamarVoz(speech, speech.text);
-            } else if ((message.includes('plantilla') && message.includes("myworksday"))) {
-                let finalresult = plantilla[Math.floor(Math.random() * plantilla.length)];
-                speech.text = finalresult;
-                llamarVoz(speech, speech.text);
-            } else if ((message.includes('plantilla') && message.includes("workable"))) {
-                let finalresult = plantilla[Math.floor(Math.random() * plantilla.length)];
-                speech.text = finalresult;
-                llamarVoz(speech, speech.text);
-            }
-            /*else if (!message.includes("papaterra") || !message.includes("carlos ")) {
-                console.log("ENTRO DIFERENTE PAPATERRA");
-                window.speechSynthesis.speak(speech);
-                chatareamain.appendChild(showchatbotmsg(speech.text, "", ""));
-                scrollDiv();
-            }*/
-            else {
+            } else if (message.includes('plantilla') && (message.includes("myworkday") || message.includes("my workday") || message.includes("worda") || message.includes("uorday"))) {
+                templates("myworkday");
+            } else if (message.includes('plantilla') && (message.includes("workable") || message.includes("worcab") || message.includes("uorcab"))) {
+                templates("workable");
+            } else {
                 speech.text = "Oh! creo que aun no he aprendido lo suficiente para responderte";
                 synth.speak(speech);
                 chatareamain.appendChild(showchatbotmsg(speech.text + " 😞", "", ""));
@@ -404,16 +392,13 @@ onload = function() {
         }
 
         function llamarVoz(spech, textoSpeech) {
-            console.log("LLAMAR VOZ")
             synth.speak(spech);
             chatareamain.appendChild(showchatbotmsg(textoSpeech, "", ""));
             scrollDiv();
-
         }
 
         function imagenDescripcion(UrlImagen, Descripcion, mensaje) {
-            console.log("imagendescrip")
-            let image = `<br><img src="${UrlImagen}" alt="" style="width: 130px;height: 100px;border-radius: 20px;"<br>`;
+            let image = `<br><img src="${UrlImagen}" alt="" style="width: 130px;height: 120px;border-radius: 50%;margin-top: 10px;margin-bottom: 10px;"<br>`;
             let description = `<span id="descspan" style="text-align: justify;">"${Descripcion}"</span><br>`;
             let finalresult = plantilla[Math.floor(Math.random() * plantilla.length)];
             speech.text = finalresult;
@@ -424,8 +409,21 @@ onload = function() {
             scrollDiv();
         }
 
+        function templates(nameTemplate) {
+            let finalresult = plantilla[Math.floor(Math.random() * plantilla.length)];
+            speech.text = finalresult;
+            synth.speak(speech);
+            let description = `<span id=descspan style=text-align: justify; > ` + speech.text + "</span><br>";
+            let msg = `<a href="assets/templates/${nameTemplate}.txt" download>Descargar ${nameTemplate}</a>`;
+            chatareamain.appendChild(showchatbotmsg(description, msg));
+            speech.text = `Acá tienes la plantilla ${nameTemplate}`;
+            synth.speak(speech);
+            description = `<span id=descspan style=text-align: justify; > ` + speech.text + "</span><br>";
+            chatareamain.appendChild(showchatbotmsg(description, ""));
+            scrollDiv();
+        }
+
         function notaqa(qa, persona) {
-            console.log("notaqa");
             let finalresult = plantilla[Math.floor(Math.random() * plantilla.length)];
             speech.text = finalresult;
             synth.speak(speech);
