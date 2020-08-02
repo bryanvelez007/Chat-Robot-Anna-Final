@@ -11,14 +11,17 @@ onload = function() {
                 scrollTop: $('.chat_body')[0].scrollHeight
             }, 1000);*/
         let scanid = [{
-            "title": "google.com",
-            "scanid": 123
+            "title": "https://www.relx.com/",
+            "empcode": "relx",
+            "scanid": 631
         }, {
-            "title": "youtube.com",
-            "scanid": 369
+            "title": "https://www.amag.ch/de.html",
+            "empcode": "amag",
+            "scanid": 677
         }, {
-            "title": "linkedin.com",
-            "scanid": 147
+            "title": "http://www.rona.ca/fr",
+            "empcode": "rona",
+            "scanid": 340
         }];
         let dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
         let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -247,6 +250,10 @@ onload = function() {
             chatbotvoice(mensaje.toLowerCase());
             $("#chatSend").val("");
         });
+        $("div.fabs>a.fab:not(.is-visible)").click(function() {
+            $("#chatSend").focus();
+        });
+
         $("#chatSend").on('keyup', function(e) {
             var keycode = e.keyCode || e.which;
             if (keycode == 13) {
@@ -397,8 +404,8 @@ onload = function() {
             } else if (message.includes("indexado") || message.includes("indexada")) {
                 var sw = false;
                 for (var i = 0; i <= scanid.length - 1; i++) {
-                    if (message.includes(scanid[i].title)) {
-                        speech.text = `La empresa ya se encuentra indexada, está en el scanid: ${scanid[i].scanid}`;
+                    if (message.includes(scanid[i].title) || message.includes(scanid[i].empcode)) {
+                        speech.text = `La empresa ${scanid[i].empcode} ya se encuentra indexada, está en el scanid: ${scanid[i].scanid}`;
                         llamarVoz(speech, speech.text);
                         sw = true;
                         break;
