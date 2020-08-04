@@ -307,7 +307,11 @@ a {
     resize: none;
     font-size: 13px;
     font-weight: 400;
+<<<<<<< HEAD
     width: 307px;
+=======
+    width: 270px;
+>>>>>>> origin/master
 }
 
 .chat_category {

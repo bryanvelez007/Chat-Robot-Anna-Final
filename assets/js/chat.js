@@ -8,8 +8,21 @@ onload = function() {
         let load = document.querySelector("#loading");
         var i = 0;
         /* $(".chat_body").animate({
-             scrollTop: $('.chat_body')[0].scrollHeight
-         }, 1000);*/
+                scrollTop: $('.chat_body')[0].scrollHeight
+            }, 1000);*/
+        let scanid = [{
+            "title": "https://www.relx.com/",
+            "empcode": "relx",
+            "scanid": 631
+        }, {
+            "title": "https://www.amag.ch/de.html",
+            "empcode": "amag",
+            "scanid": 677
+        }, {
+            "title": "http://www.rona.ca/fr",
+            "empcode": "rona",
+            "scanid": 340
+        }];
         let dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
         let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         let intro = ["Un gusto conocerte, soy Violette, estoy para servirte.", "¿Que tal?, Yo soy Violette, espero tus órdenes.", "Hola, mí nombre es Violette, ¿que deseas hacer hoy?", "Buen día, soy un robot llamado Violette programado para cumplir tus necesidades laborales."];
@@ -23,6 +36,107 @@ onload = function() {
         let funciones = ['Mí función principal es darte plantillas.', 'Solo tengo la funcion de suministrate plantillas.'];
         let nombre = ['Me llamo Violette, estoy para servirte.', 'Violette para servirte.'];
         let fundadores = ["Fui creada el 19 de julio del 2020 por Bryan Vélez y Andrés Gutiérrez.", "Mis creadores son Bryan Vélez y Andrés Gutiérrez."]
+        let empresas = ["fitzii",
+            "zenapply",
+            "wizehire",
+            "applicantpro",
+            "smartsearch",
+            "recruiteze.com",
+            "hiringthing",
+            "zoho recruit",
+            "gohire",
+            "hirehive",
+            "jobsoid",
+            "successfactors",
+            "comeet",
+            "freshworks",
+            "webhr",
+            "ismartrecruit",
+            "apploi",
+            "ceipal",
+            "talentnest",
+            "smartrecruiters",
+            "traitset",
+            "talentnow",
+            "zenploy",
+            "jazzhr",
+            "catsone",
+            "eddyhr",
+            "talent pool builder",
+            "jobdiva",
+            "hirebridge",
+            "clinch talent",
+            "hoopshr",
+            "gothire",
+            "staffing future",
+            "better team",
+            "breezyhr",
+            "conrep",
+            "jxt",
+            "resume mantra",
+            "raven ridge group - pcrecruiters",
+            "softunik",
+            "acquiretm",
+            "hireology",
+            "trackerrms",
+            "recruitcrm",
+            "nextal",
+            "grit seed",
+            "cbizsoft",
+            "beetween",
+            "talentlyft",
+            "crelate talent",
+            "tranformify",
+            "rise people",
+            "talentvine",
+            "recruitbpm",
+            "logicmelon - appoint group",
+            "rezoomo",
+            "recooty",
+            "talentadmin",
+            "jobtrain",
+            "aira",
+            "on apply",
+            "idibu",
+            "happymonday",
+            "careerplug",
+            "jobscore",
+            "manatal",
+            "fountain",
+            "cvviz",
+            "myjoblist",
+            "acosta",
+            "cgi",
+            "randstad us",
+            "randstad ca",
+            "tenstreet",
+            "youcruit",
+            "nextal",
+            "ceipal",
+            "hoops hr",
+            "beetween",
+            "talentvine",
+            "risepeople",
+            "recruitbpm",
+            "gigroup ch",
+            "logicmelon - appoint group",
+            "recruitbpm",
+            "rezoomo",
+            "recooty",
+            "talentadmin",
+            "jobtrain",
+            "betterteam",
+            "smartrecruiter",
+            "bullhorn",
+            "aira",
+            "arca24 it",
+            "arca24",
+            "ali spa",
+            "zenploy",
+            "careerplug",
+            "happymonday.com",
+            "top echelon",
+        ]
         var hoy = new Date();
         var dd = hoy.getDate();
         var mm = hoy.getMonth() + 1;
@@ -73,9 +187,9 @@ onload = function() {
             i = i + 1;
             let output = '';
             output += `<div class="messages">
-            <img class="img_robot" src="assets/images/ana.jpg" alt="anna robot">
-            <div class="chatarea-inner chatbot" style="text-align: justify;">${chatbotmsg}${image}${description}</div>
-        </div>`;
+        <img class="img_robot" src="assets/images/ana.jpg" alt="anna robot">
+        <div class="chatarea-inner chatbot" style="text-align: justify;">${chatbotmsg}${image}${description}</div>
+    </div>`;
             chatareaouter.innerHTML += output;
             var myDiv = document.querySelectorAll("div.chatarea-inner.chatbot")[i];
             var altura = myDiv.clientHeight
@@ -104,9 +218,9 @@ onload = function() {
             i = i + 1;
             let output = '';
             output += `<div class="messages">
-            <img class="img_robot" src="assets/images/ana.jpg" alt="anna robot">
-            <div class="chatarea-inner chatbot" style="text-align: justify;">${description}${msg}</div>
-        </div>`;
+        <img class="img_robot" src="assets/images/ana.jpg" alt="anna robot">
+        <div class="chatarea-inner chatbot" style="text-align: justify;">${description}${msg}</div>
+    </div>`;
             chatareaouter.innerHTML += output;
             var myDiv = document.querySelectorAll("div.chatarea-inner.chatbot")[i];
             var altura = myDiv.clientHeight
@@ -136,6 +250,10 @@ onload = function() {
             chatbotvoice(mensaje.toLowerCase());
             $("#chatSend").val("");
         });
+        $("div.fabs>a.fab:not(.is-visible)").click(function() {
+            $("#chatSend").focus();
+        });
+
         $("#chatSend").on('keyup', function(e) {
             var keycode = e.keyCode || e.which;
             if (keycode == 13) {
@@ -283,6 +401,36 @@ onload = function() {
                         imagenDescripcion(JSON.parse(response).andres.url, JSON.parse(response).andres.descripcion, JSON.parse(response).andres.nombre);
                     }
                 });
+            } else if (message.includes("indexado") || message.includes("indexada")) {
+                var sw = false;
+                for (var i = 0; i <= scanid.length - 1; i++) {
+                    if (message.includes(scanid[i].title) || message.includes(scanid[i].empcode)) {
+                        speech.text = `La empresa ${scanid[i].empcode} ya se encuentra indexada, está en el scanid: ${scanid[i].scanid}`;
+                        llamarVoz(speech, speech.text);
+                        sw = true;
+                        break;
+                    }
+                };
+                if (!sw) {
+                    speech.text = `El sitio no se encuentra indexado`;
+                    llamarVoz(speech, speech.text);
+                }
+            } else if (message.includes("indexar") || message.includes("indexable")) {
+                var sw = false;
+                for (var i = 0; i <= empresas.length - 1; i++) {
+                    if (message.includes(empresas[i])) {
+                        speech.text = `El sitio ${empresas[i]} no se puede indexar`;
+                        llamarVoz(speech, speech.text);
+                        sw = true;
+                        break;
+                    }
+                };
+                if (!sw) {
+                    speech.text = `El sitio se puede indexar`;
+                    llamarVoz(speech, speech.text);
+                }
+            } else if (message.includes("blacklist") || message.includes("lista") || message.includes("no indexables")) {
+                templates("blacklist");
             } else if (message.includes('novia')) {
                 speech.text = "Me gustas…. pero solo como amigo.";
                 llamarVoz(speech, speech.text);
